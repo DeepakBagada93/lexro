@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -63,6 +63,14 @@ const travelLifestyleCalculators = [
   { name: "Flight CO2 Emissions Calculator", href: "/calculators/travel-lifestyle/flight-co2-emissions-calculator", icon: Leaf },
   { name: "Backpacking Weight Calculator", href: "/calculators/travel-lifestyle/backpacking-weight-calculator", icon: Backpack },
   { name: "Travel Days Countdown", href: "/calculators/travel-lifestyle/travel-days-countdown", icon: CalendarDays },
+];
+
+const ecommercePricingCalculators = [
+  { name: "Product Pricing Calculator", href: "/calculators/ecommerce-pricing/product-pricing-calculator", icon: Tag },
+  { name: "Discount Calculator", href: "/calculators/ecommerce-pricing/discount-calculator", icon: BadgePercent },
+  { name: "Shipping Cost Estimator", href: "/calculators/ecommerce-pricing/shipping-cost-estimator", icon: Truck },
+  { name: "Bulk Price Break Calculator", href: "/calculators/ecommerce-pricing/bulk-price-break-calculator", icon: Boxes },
+  { name: "Etsy/Shopify Fee Calculator", href: "/calculators/ecommerce-pricing/etsy-shopify-fee-calculator", icon: BadgeDollarSign },
 ];
 
 
@@ -174,6 +182,26 @@ export default function Header() {
                     <DropdownMenuLabel>Travel & Lifestyle Tools</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {travelLifestyleCalculators.map((tool) => (
+                      <DropdownMenuItem key={tool.name} asChild>
+                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                          <tool.icon size={16} className="text-muted-foreground" />
+                          <span>{tool.name}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <ShoppingCart size={16} className="mr-2 text-muted-foreground" /> 
+                  <span>E-Commerce &amp; Pricing</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className="w-72">
+                    <DropdownMenuLabel>E-Commerce & Pricing Tools</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {ecommercePricingCalculators.map((tool) => (
                       <DropdownMenuItem key={tool.name} asChild>
                         <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
                           <tool.icon size={16} className="text-muted-foreground" />

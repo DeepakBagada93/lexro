@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -55,6 +55,14 @@ const healthFitnessCalculators = [
   { name: "Ideal Weight Calculator", href: "/calculators/health-fitness/ideal-weight-calculator", icon: Target },
   { name: "Body Fat Percentage Calculator", href: "/calculators/health-fitness/body-fat-percentage-calculator", icon: Gauge },
   { name: "Water Intake Calculator", href: "/calculators/health-fitness/water-intake-calculator", icon: Droplet },
+];
+
+const travelLifestyleCalculators = [
+  { name: "Trip Budget Calculator", href: "/calculators/travel-lifestyle/trip-budget-calculator", icon: Briefcase },
+  { name: "Time Zone Converter", href: "/calculators/travel-lifestyle/time-zone-converter", icon: Globe },
+  { name: "Flight CO2 Emissions Calculator", href: "/calculators/travel-lifestyle/flight-co2-emissions-calculator", icon: Leaf },
+  { name: "Backpacking Weight Calculator", href: "/calculators/travel-lifestyle/backpacking-weight-calculator", icon: Backpack },
+  { name: "Travel Days Countdown", href: "/calculators/travel-lifestyle/travel-days-countdown", icon: CalendarDays },
 ];
 
 
@@ -146,6 +154,26 @@ export default function Header() {
                     <DropdownMenuLabel>Health & Fitness Tools</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {healthFitnessCalculators.map((tool) => (
+                      <DropdownMenuItem key={tool.name} asChild>
+                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                          <tool.icon size={16} className="text-muted-foreground" />
+                          <span>{tool.name}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Plane size={16} className="mr-2 text-muted-foreground" /> 
+                  <span>Travel &amp; Lifestyle</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className="w-72">
+                    <DropdownMenuLabel>Travel & Lifestyle Tools</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {travelLifestyleCalculators.map((tool) => (
                       <DropdownMenuItem key={tool.name} asChild>
                         <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
                           <tool.icon size={16} className="text-muted-foreground" />

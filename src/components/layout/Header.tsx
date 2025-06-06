@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -46,6 +46,15 @@ const aiContentCalculators = [
   { name: "Content Readability Score", href: "/calculators/ai-content/content-readability-calculator", icon: BookOpenCheck },
   { name: "Keyword Density Calculator", href: "/calculators/ai-content/keyword-density-calculator", icon: Tags },
   { name: "Estimated Reading Time", href: "/calculators/ai-content/estimated-reading-time-calculator", icon: Timer },
+];
+
+const healthFitnessCalculators = [
+  { name: "BMI Calculator", href: "/calculators/health-fitness/bmi-calculator", icon: Scale },
+  { name: "BMR & Calorie Calculator", href: "/calculators/health-fitness/bmr-calorie-calculator", icon: Flame },
+  { name: "Macros Calculator", href: "/calculators/health-fitness/macros-calculator", icon: PieChart },
+  { name: "Ideal Weight Calculator", href: "/calculators/health-fitness/ideal-weight-calculator", icon: Target },
+  { name: "Body Fat Percentage Calculator", href: "/calculators/health-fitness/body-fat-percentage-calculator", icon: Gauge },
+  { name: "Water Intake Calculator", href: "/calculators/health-fitness/water-intake-calculator", icon: Droplet },
 ];
 
 
@@ -113,7 +122,7 @@ export default function Header() {
                   <span>AI &amp; Content Creation</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-72"> {/* Increased width for longer names */}
+                  <DropdownMenuSubContent className="w-72">
                     <DropdownMenuLabel>AI & Content Tools</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {aiContentCalculators.map((tool) => (
@@ -127,7 +136,26 @@ export default function Header() {
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
-              {/* Add other calculator categories here as DropdownMenuSub or DropdownMenuItem */}
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <HeartPulse size={16} className="mr-2 text-muted-foreground" />
+                  <span>Health &amp; Fitness</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className="w-72">
+                    <DropdownMenuLabel>Health & Fitness Tools</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {healthFitnessCalculators.map((tool) => (
+                      <DropdownMenuItem key={tool.name} asChild>
+                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                          <tool.icon size={16} className="text-muted-foreground" />
+                          <span>{tool.name}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>

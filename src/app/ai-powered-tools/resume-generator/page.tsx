@@ -31,7 +31,7 @@ const educationSchema = z.object({
   institution: z.string().min(1, "Institution name is required."),
   location: z.string().optional(),
   graduationYear: z.string().min(4, "Graduation year is required (YYYY).").max(4, "Invalid year format."),
-  details: z.string().optional().max(200, "Details should be brief (max 200 characters)."),
+  details: z.string().max(200, "Details should be brief (max 200 characters).").optional(),
 });
 
 const skillSchema = z.object({

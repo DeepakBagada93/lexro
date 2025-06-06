@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Building } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -71,6 +71,15 @@ const ecommercePricingCalculators = [
   { name: "Shipping Cost Estimator", href: "/calculators/ecommerce-pricing/shipping-cost-estimator", icon: Truck },
   { name: "Bulk Price Break Calculator", href: "/calculators/ecommerce-pricing/bulk-price-break-calculator", icon: Boxes },
   { name: "Etsy/Shopify Fee Calculator", href: "/calculators/ecommerce-pricing/etsy-shopify-fee-calculator", icon: BadgeDollarSign },
+];
+
+const businessTools = [
+    { name: "Invoice Generator", href: "/business-tools/invoice-generator", icon: FileText, description: "Create and manage professional invoices." },
+    { name: "Quotation Generator", href: "/business-tools/quotation-generator", icon: FilePlus, description: "Generate and send price quotes." },
+    { name: "Business Plan Generator", href: "/business-tools/business-plan-generator", icon: FileSpreadsheet, description: "Develop a comprehensive business plan." },
+    { name: "Terms & Conditions Generator", href: "/business-tools/terms-conditions-generator", icon: FileLock2, description: "Generate terms for your website/app." },
+    { name: "Privacy Policy Generator", href: "/business-tools/privacy-policy-generator", icon: FileLock, description: "Create a privacy policy document." },
+    { name: "NDAs & Legal Docs Generator", href: "/business-tools/legal-docs-generator", icon: FileSignature, description: "Generate NDAs and other legal docs." },
 ];
 
 
@@ -214,6 +223,27 @@ export default function Header() {
               </DropdownMenuSub>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Business Tools <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-72">
+              <DropdownMenuLabel>Business Utilities</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {businessTools.map((tool) => (
+                <DropdownMenuItem key={tool.name} asChild>
+                  <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                    <tool.icon size={16} className="text-muted-foreground" />
+                    <span>{tool.name}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
         </nav>
       </div>
     </header>

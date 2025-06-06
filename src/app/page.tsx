@@ -1,6 +1,4 @@
 import Header from '@/components/layout/Header';
-import ImageConverter from '@/components/tools/ImageConverter';
-import ImageCompressor from '@/components/tools/ImageCompressor';
 import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
@@ -13,14 +11,8 @@ export default function Home() {
             Toolbox <span className="text-primary">AI</span>
           </h1>
           <p className="mt-3 sm:mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground">
-            Your one-stop solution for intelligent image optimization.
+            Your one-stop solution for intelligent image optimization. Explore our tools via the "Image Tools" menu in the header.
           </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12"> {/* Updated to lg:grid-cols-2 */}
-          <ImageConverter />
-          <ImageCompressor />
-          {/* ImageCropper removed as it has its own page now */}
         </div>
         
         <Separator className="my-12 sm:my-16" />
@@ -28,7 +20,7 @@ export default function Home() {
         <section className="text-center">
             <h2 className="text-3xl font-headline font-bold mb-4">How It Works</h2>
             <p className="max-w-xl mx-auto text-muted-foreground">
-                Simply upload your image, choose your desired operation, and let our tools (and AI!) do the rest. Preview your changes and download the optimized image.
+                Simply upload your image, choose your desired operation from our suite of tools, and let our AI-powered features do the rest. Preview your changes and download the optimized image.
             </p>
         </section>
 

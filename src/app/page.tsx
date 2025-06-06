@@ -3,8 +3,7 @@ import Header from '@/components/layout/Header';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import Image from 'next/image';
-import { CheckCircle, Zap, Lightbulb, BarChart, Settings } from 'lucide-react';
+import { CheckCircle, Zap, Lightbulb, BarChart, Settings, Brain, DollarSign, Briefcase } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -37,21 +36,21 @@ export default function Home() {
               <Zap size={48} className="text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Boost Productivity</h3>
               <p className="text-muted-foreground">
-                Automate tedious tasks and get results faster with our intelligent tools, saving you valuable time and effort.
+                Automate tedious tasks and get results faster with our intelligent tools, saving you valuable time and effort across image editing, financial calculations, and document generation.
               </p>
             </div>
             <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-lg">
               <Lightbulb size={48} className="text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Unlock Creativity</h3>
               <p className="text-muted-foreground">
-                Generate ideas, create stunning visuals, and refine your content with AI assistance that inspires.
+                Generate ideas, create stunning visuals with color palette and gradient tools, and refine your content with AI assistance that inspires innovation.
               </p>
             </div>
             <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-lg">
               <Settings size={48} className="text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Simplify Complexity</h3>
               <p className="text-muted-foreground">
-                Tackle complex calculations and document generation with easy-to-use interfaces and powerful AI backends.
+                Tackle complex financial calculations, legal document generation, and content analysis with easy-to-use interfaces and powerful AI backends.
               </p>
             </div>
           </div>
@@ -60,34 +59,34 @@ export default function Home() {
         <Separator className="my-12 sm:my-16" />
 
         <section className="mb-16 sm:mb-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-1 gap-12 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-6">Packed with Powerful Features</h2>
-              <ul className="space-y-4">
+              <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-6 text-center">Packed with Powerful Features</h2>
+              <p className="text-muted-foreground mb-8 text-lg text-center max-w-3xl mx-auto">
+                Lexro AI is engineered to be your all-in-one productivity powerhouse. Whether you're an entrepreneur managing business finances, a content creator needing text analysis, or a developer looking for image optimization solutions, our platform provides a diverse toolkit.
+              </p>
+              <ul className="space-y-4 max-w-2xl mx-auto">
                 <li className="flex items-start">
                   <CheckCircle size={24} className="text-primary mr-3 mt-1 shrink-0" />
-                  <span className="text-muted-foreground">Wide range of tools for images, finance, content, business, and more.</span>
+                  <span className="text-muted-foreground"><strong className="font-semibold text-foreground/90">Comprehensive Toolset:</strong> Wide range of tools for image manipulation (cropping, conversion, background removal), financial planning (EMI, compound interest, taxes), AI content analysis (token estimation, readability), business document generation (invoices, quotes), and health/lifestyle calculations.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle size={24} className="text-primary mr-3 mt-1 shrink-0" />
-                  <span className="text-muted-foreground">Intuitive user interfaces for seamless operation.</span>
+                  <span className="text-muted-foreground"><strong className="font-semibold text-foreground/90">Intuitive User Experience:</strong> User-friendly interfaces designed for seamless operation, ensuring you can leverage powerful AI without a steep learning curve.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle size={24} className="text-primary mr-3 mt-1 shrink-0" />
-                  <span className="text-muted-foreground">AI-powered suggestions and optimizations to enhance your output.</span>
+                  <span className="text-muted-foreground"><strong className="font-semibold text-foreground/90">AI-Powered Assistance:</strong> Benefit from intelligent suggestions, optimizations, and generation capabilities to enhance your output and save time.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle size={24} className="text-primary mr-3 mt-1 shrink-0" />
-                  <span className="text-muted-foreground">Secure and reliable performance for all your tasks.</span>
+                  <span className="text-muted-foreground"><strong className="font-semibold text-foreground/90">Secure & Reliable:</strong> Built with performance and data security in mind, providing a dependable platform for all your tasks.</span>
                 </li>
                  <li className="flex items-start">
                   <CheckCircle size={24} className="text-primary mr-3 mt-1 shrink-0" />
-                  <span className="text-muted-foreground">Constantly evolving with new tools and features based on user needs.</span>
+                  <span className="text-muted-foreground"><strong className="font-semibold text-foreground/90">Continuous Evolution:</strong> Our platform is constantly updated with new tools and features, driven by user feedback and advancements in AI technology.</span>
                 </li>
               </ul>
-            </div>
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <Image src="https://placehold.co/600x400.png" alt="Lexro AI features" width={600} height={400} className="w-full h-auto object-cover" data-ai-hint="abstract tech" />
             </div>
           </div>
         </section>
@@ -95,18 +94,26 @@ export default function Home() {
         <Separator className="my-12 sm:my-16" />
         
         <section className="mb-16 sm:mb-24">
-           <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="rounded-lg overflow-hidden shadow-xl md:order-last">
-              <Image src="https://placehold.co/600x450.png" alt="Why choose Lexro AI" width={600} height={450} className="w-full h-auto object-cover" data-ai-hint="modern office" />
-            </div>
+           <div className="grid md:grid-cols-1 gap-12 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-6">Why Choose Lexro AI?</h2>
-              <p className="text-muted-foreground mb-4 text-lg">
-                In a world demanding efficiency and innovation, Lexro AI stands out by offering a comprehensive, user-friendly platform. We consolidate a multitude of AI-driven functionalities into one accessible space, eliminating the need to juggle multiple applications.
+              <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-6 text-center">Why Choose Lexro AI?</h2>
+              <p className="text-muted-foreground mb-6 text-lg text-center max-w-3xl mx-auto">
+                In a world demanding efficiency and innovation, Lexro AI stands out by offering a comprehensive, user-friendly platform. We consolidate a multitude of AI-driven functionalities into one accessible space, eliminating the need to juggle multiple applications. Our commitment is to provide tools that are not only powerful but also intuitive, enabling professionals and creatives alike to achieve more with less effort.
               </p>
-              <p className="text-muted-foreground text-lg">
-                Our commitment is to provide tools that are not only powerful but also intuitive, enabling professionals and creatives alike to achieve more with less effort.
-              </p>
+              <div className="max-w-3xl mx-auto space-y-6">
+                <div className="p-6 bg-card rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold text-primary mb-2 flex items-center"><Brain size={22} className="mr-2" />Unparalleled Versatility</h3>
+                    <p className="text-muted-foreground">From precise financial calculators for robust business planning and AI content tools for impactful marketing, to versatile image utilities for stunning visuals and document generators for legal and operational needs—Lexro AI covers a vast spectrum of professional requirements.</p>
+                </div>
+                <div className="p-6 bg-card rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold text-primary mb-2 flex items-center"><DollarSign size={22} className="mr-2" />User-Centric by Design</h3>
+                    <p className="text-muted-foreground">We prioritize ease of use, ensuring that powerful capabilities are accessible to everyone, regardless of technical expertise. Our intuitive interfaces mean less time learning and more time achieving your goals efficiently.</p>
+                </div>
+                <div className="p-6 bg-card rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold text-primary mb-2 flex items-center"><Briefcase size={22} className="mr-2" />Continuous Innovation</h3>
+                    <p className="text-muted-foreground">Lexro AI is a dynamic platform, constantly updated with new tools and features driven by user feedback and technological advancements. We ensure you always have the best, most relevant solutions at your fingertips to stay ahead.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -116,7 +123,7 @@ export default function Home() {
         <section className="text-center">
             <h2 className="text-3xl sm:text-4xl font-headline font-bold mb-6">Ready to Get Started?</h2>
             <p className="max-w-xl mx-auto text-muted-foreground mb-8 text-lg">
-                Dive into the world of AI-powered efficiency. Explore our tools today and transform the way you work.
+                Dive into the world of AI-powered efficiency. Explore our tools today and transform the way you work, create, and manage your tasks.
             </p>
             <Button asChild size="lg" className="text-xl px-10 py-7">
               <Link href="/tools/image-cropper">View All Tools</Link>

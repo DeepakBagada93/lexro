@@ -1,7 +1,6 @@
 import Header from '@/components/layout/Header';
 import ImageConverter from '@/components/tools/ImageConverter';
 import ImageCompressor from '@/components/tools/ImageCompressor';
-import ImageCropper from '@/components/tools/ImageCropper';
 import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
@@ -18,10 +17,10 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12"> {/* Updated to lg:grid-cols-2 */}
           <ImageConverter />
           <ImageCompressor />
-          <ImageCropper />
+          {/* ImageCropper removed as it has its own page now */}
         </div>
         
         <Separator className="my-12 sm:my-16" />

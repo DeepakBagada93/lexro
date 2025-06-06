@@ -22,7 +22,7 @@ export default function CompoundInterestCalculatorPage() {
       </main>
       <footer className="text-center py-8 border-t border-border">
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Toolbox AI. All rights reserved.
+          &copy; {new Date().getFullYear()} Lexro AI. All rights reserved.
         </p>
       </footer>
     </div>

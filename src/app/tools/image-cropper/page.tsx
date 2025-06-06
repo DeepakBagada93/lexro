@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import ImageUpload from '@/components/shared/ImageUpload';
 import { fileToDataUri, downloadImage } from '@/lib/imageUtils';
 import { useToast } from "@/hooks/use-toast";
-import Header from '@/components/layout/Header'; // Added Header
+import Header from '@/components/layout/Header'; 
 
 interface CropConfig {
   x: number;
@@ -180,7 +180,7 @@ export default function ImageCropperPage() {
       </main>
       <footer className="text-center py-8 border-t border-border">
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Toolbox AI. All rights reserved.
+          &copy; {new Date().getFullYear()} Lexro AI. All rights reserved.
         </p>
       </footer>
     </div>

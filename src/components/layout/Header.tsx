@@ -94,7 +94,7 @@ export default function Header() {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-2xl font-headline font-bold text-primary hover:text-primary/90 transition-colors">
           <Combine size={28} />
-          <span>Toolbox AI</span>
+          <span>Lexro AI</span>
         </Link>
         <nav className="flex gap-2">
           <DropdownMenu>

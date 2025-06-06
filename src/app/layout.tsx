@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Toolbox AI',
-  description: 'AI-powered image tools for conversion, compression, and cropping.',
+  title: 'Lexro AI',
+  description: 'AI-powered tools for images, business, finance, and more.',
 };
 
 export default function RootLayout({

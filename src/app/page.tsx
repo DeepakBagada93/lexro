@@ -1,3 +1,4 @@
+
 import Header from '@/components/layout/Header';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
@@ -18,10 +19,10 @@ export default function Home() {
             Your ultimate suite of AI-powered tools designed to streamline your workflows, enhance productivity, and unlock new possibilities. From image editing to complex calculations, Lexro AI has you covered.
           </p>
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-6">
+            <Button asChild size="lg" className="text-lg px-6 py-3 sm:px-8 sm:py-4">
               <Link href="/tools/image-cropper">Explore Image Tools</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Button asChild variant="outline" size="lg" className="text-lg px-6 py-3 sm:px-8 sm:py-4">
               <Link href="/calculators/finance/loan-emi-calculator">Discover Calculators</Link>
             </Button>
           </div>

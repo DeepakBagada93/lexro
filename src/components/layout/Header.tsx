@@ -1,4 +1,8 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb } from 'lucide-react';
+
+"use client";
+
+import * as React from 'react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -13,6 +17,15 @@ import {
   DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const imageTools = [
   { name: "Background Remover", href: "/tools/background-remover", icon: Eraser, description: "Remove backgrounds from images quickly." },
@@ -51,7 +64,7 @@ const aiContentCalculators = [
 const healthFitnessCalculators = [
   { name: "BMI Calculator", href: "/calculators/health-fitness/bmi-calculator", icon: Scale },
   { name: "BMR & Calorie Calculator", href: "/calculators/health-fitness/bmr-calorie-calculator", icon: Flame },
-  { name: "Macros Calculator", href: "/calculators/health-fitness/macros-calculator", icon: PieChart },
+  { name: "Macros Calculator", href: "/calculators/health-fitness/macros-calculator", icon: PieChartLucideIcon },
   { name: "Ideal Weight Calculator", href: "/calculators/health-fitness/ideal-weight-calculator", icon: Target },
   { name: "Body Fat Percentage Calculator", href: "/calculators/health-fitness/body-fat-percentage-calculator", icon: Gauge },
   { name: "Water Intake Calculator", href: "/calculators/health-fitness/water-intake-calculator", icon: Droplet },
@@ -87,190 +100,312 @@ const aiPoweredTools = [
   { name: "AI Powered Resume Generator", href: "/ai-powered-tools/resume-generator", icon: FileText, description: "Create a resume with AI and download as PDF." },
 ];
 
+interface HeaderProps {
+  className?: string;
+}
 
-export default function Header() {
+export default function Header({ className }: HeaderProps) {
+  const isMobile = useIsMobile();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  const renderDesktopMenu = () => (
+    <nav className="hidden md:flex gap-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            Image Tools <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-64">
+          <DropdownMenuLabel>Image Utilities</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {imageTools.map((tool) => (
+            <DropdownMenuItem key={tool.name} asChild>
+              <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                <tool.icon size={16} className="text-muted-foreground" />
+                <span>{tool.name}</span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            Calculators <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-72">
+          <DropdownMenuLabel>Calculation Tools</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Landmark size={16} className="mr-2 text-muted-foreground" />
+              <span>Finance &amp; Money</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-64">
+                <DropdownMenuLabel>Finance Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {financeCalculators.map((tool) => (
+                  <DropdownMenuItem key={tool.name} asChild>
+                    <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                      <tool.icon size={16} className="text-muted-foreground" />
+                      <span>{tool.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Brain size={16} className="mr-2 text-muted-foreground" />
+              <span>AI &amp; Content Creation</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-72">
+                <DropdownMenuLabel>AI & Content Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {aiContentCalculators.map((tool) => (
+                  <DropdownMenuItem key={tool.name} asChild>
+                    <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                      <tool.icon size={16} className="text-muted-foreground" />
+                      <span>{tool.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <HeartPulse size={16} className="mr-2 text-muted-foreground" />
+              <span>Health &amp; Fitness</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-72">
+                <DropdownMenuLabel>Health & Fitness Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {healthFitnessCalculators.map((tool) => (
+                  <DropdownMenuItem key={tool.name} asChild>
+                    <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                      <tool.icon size={16} className="text-muted-foreground" />
+                      <span>{tool.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Plane size={16} className="mr-2 text-muted-foreground" /> 
+              <span>Travel &amp; Lifestyle</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-72">
+                <DropdownMenuLabel>Travel & Lifestyle Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {travelLifestyleCalculators.map((tool) => (
+                  <DropdownMenuItem key={tool.name} asChild>
+                    <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                      <tool.icon size={16} className="text-muted-foreground" />
+                      <span>{tool.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <ShoppingCart size={16} className="mr-2 text-muted-foreground" /> 
+              <span>E-Commerce &amp; Pricing</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-72">
+                <DropdownMenuLabel>E-Commerce & Pricing Tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {ecommercePricingCalculators.map((tool) => (
+                  <DropdownMenuItem key={tool.name} asChild>
+                    <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                      <tool.icon size={16} className="text-muted-foreground" />
+                      <span>{tool.name}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            Business Tools <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-72">
+          <DropdownMenuLabel>Business Utilities</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {businessTools.map((tool) => (
+            <DropdownMenuItem key={tool.name} asChild>
+              <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                <tool.icon size={16} className="text-muted-foreground" />
+                <span>{tool.name}</span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            AI Powered Tools <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-72">
+          <DropdownMenuLabel>Intelligent Automation</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {aiPoweredTools.map((tool) => (
+            <DropdownMenuItem key={tool.name} asChild>
+              <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                <tool.icon size={16} className="text-muted-foreground" />
+                <span>{tool.name}</span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </nav>
+  );
+
+  const renderMobileMenuLink = (tool: { name: string; href: string; icon: React.ElementType }) => (
+    <SheetClose asChild key={tool.name}>
+      <Link
+        href={tool.href}
+        className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent"
+      >
+        <tool.icon size={18} className="text-muted-foreground" />
+        <span>{tool.name}</span>
+      </Link>
+    </SheetClose>
+  );
+  
+  const renderMobileMenu = () => (
+    <nav className="md:hidden">
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <SheetTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-full max-w-xs sm:max-w-sm p-0">
+          <div className="p-4 border-b">
+            <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold text-primary" onClick={() => setIsMobileMenuOpen(false)}>
+              <Combine size={26} />
+              <span>Lexro AI</span>
+            </Link>
+          </div>
+          <div className="p-4 space-y-2 overflow-y-auto" style={{maxHeight: 'calc(100vh - 70px)'}}> {/* Adjust max height based on header */}
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="image-tools">
+                <AccordionTrigger className="text-base font-semibold hover:no-underline">Image Tools</AccordionTrigger>
+                <AccordionContent className="pl-2 space-y-1">
+                  {imageTools.map(renderMobileMenuLink)}
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="calculators">
+                <AccordionTrigger className="text-base font-semibold hover:no-underline">Calculators</AccordionTrigger>
+                <AccordionContent className="pl-2 space-y-1">
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="finance-calc">
+                      <AccordionTrigger className="text-sm font-medium hover:no-underline">Finance & Money</AccordionTrigger>
+                      <AccordionContent className="pl-2 space-y-1">{financeCalculators.map(renderMobileMenuLink)}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="ai-content-calc">
+                      <AccordionTrigger className="text-sm font-medium hover:no-underline">AI & Content Creation</AccordionTrigger>
+                      <AccordionContent className="pl-2 space-y-1">{aiContentCalculators.map(renderMobileMenuLink)}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="health-fitness-calc">
+                      <AccordionTrigger className="text-sm font-medium hover:no-underline">Health & Fitness</AccordionTrigger>
+                      <AccordionContent className="pl-2 space-y-1">{healthFitnessCalculators.map(renderMobileMenuLink)}</AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="travel-lifestyle-calc">
+                      <AccordionTrigger className="text-sm font-medium hover:no-underline">Travel & Lifestyle</AccordionTrigger>
+                      <AccordionContent className="pl-2 space-y-1">{travelLifestyleCalculators.map(renderMobileMenuLink)}</AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="ecommerce-pricing-calc">
+                      <AccordionTrigger className="text-sm font-medium hover:no-underline">E-Commerce & Pricing</AccordionTrigger>
+                      <AccordionContent className="pl-2 space-y-1">{ecommercePricingCalculators.map(renderMobileMenuLink)}</AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="business-tools">
+                <AccordionTrigger className="text-base font-semibold hover:no-underline">Business Tools</AccordionTrigger>
+                <AccordionContent className="pl-2 space-y-1">
+                  {businessTools.map(renderMobileMenuLink)}
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="ai-powered-tools">
+                <AccordionTrigger className="text-base font-semibold hover:no-underline">AI Powered Tools</AccordionTrigger>
+                <AccordionContent className="pl-2 space-y-1">
+                  {aiPoweredTools.map(renderMobileMenuLink)}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </nav>
+  );
+  
+  if (isMobile === undefined) {
+    // To prevent SSR/hydration mismatch or flash of incorrect menu, 
+    // you might render a placeholder or nothing until isMobile is determined.
+    // For simplicity here, we'll render based on initial assumption (desktop) or let it quickly correct.
+    // A common pattern is to return null or a Skeleton loader here.
+    return (
+       <header className={cn("py-6 bg-card border-b border-border shadow-md", className)}>
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-2xl font-headline font-bold text-primary hover:text-primary/90 transition-colors">
+            <Combine size={28} />
+            <span>Lexro AI</span>
+          </Link>
+           {/* Placeholder for menu button on mobile during load */}
+          <div className="md:hidden"> 
+            <Button variant="outline" size="icon" disabled>
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+          <div className="hidden md:flex">
+             {/* Placeholder for desktop menu during load or render nothing */}
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+
   return (
-    <header className="py-6 bg-card border-b border-border shadow-md">
+    <header className={cn("py-6 bg-card border-b border-border shadow-md", className)}>
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-2xl font-headline font-bold text-primary hover:text-primary/90 transition-colors">
           <Combine size={28} />
           <span>Lexro AI</span>
         </Link>
-        <nav className="flex gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Image Tools <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-64">
-              <DropdownMenuLabel>Image Utilities</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {imageTools.map((tool) => (
-                <DropdownMenuItem key={tool.name} asChild>
-                  <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                    <tool.icon size={16} className="text-muted-foreground" />
-                    <span>{tool.name}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Calculators <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-72">
-              <DropdownMenuLabel>Calculation Tools</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <Landmark size={16} className="mr-2 text-muted-foreground" />
-                  <span>Finance &amp; Money</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-64">
-                    <DropdownMenuLabel>Finance Tools</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {financeCalculators.map((tool) => (
-                      <DropdownMenuItem key={tool.name} asChild>
-                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                          <tool.icon size={16} className="text-muted-foreground" />
-                          <span>{tool.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <Brain size={16} className="mr-2 text-muted-foreground" />
-                  <span>AI &amp; Content Creation</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-72">
-                    <DropdownMenuLabel>AI & Content Tools</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {aiContentCalculators.map((tool) => (
-                      <DropdownMenuItem key={tool.name} asChild>
-                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                          <tool.icon size={16} className="text-muted-foreground" />
-                          <span>{tool.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <HeartPulse size={16} className="mr-2 text-muted-foreground" />
-                  <span>Health &amp; Fitness</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-72">
-                    <DropdownMenuLabel>Health & Fitness Tools</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {healthFitnessCalculators.map((tool) => (
-                      <DropdownMenuItem key={tool.name} asChild>
-                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                          <tool.icon size={16} className="text-muted-foreground" />
-                          <span>{tool.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <Plane size={16} className="mr-2 text-muted-foreground" /> 
-                  <span>Travel &amp; Lifestyle</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-72">
-                    <DropdownMenuLabel>Travel & Lifestyle Tools</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {travelLifestyleCalculators.map((tool) => (
-                      <DropdownMenuItem key={tool.name} asChild>
-                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                          <tool.icon size={16} className="text-muted-foreground" />
-                          <span>{tool.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <ShoppingCart size={16} className="mr-2 text-muted-foreground" /> 
-                  <span>E-Commerce &amp; Pricing</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-72">
-                    <DropdownMenuLabel>E-Commerce & Pricing Tools</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {ecommercePricingCalculators.map((tool) => (
-                      <DropdownMenuItem key={tool.name} asChild>
-                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                          <tool.icon size={16} className="text-muted-foreground" />
-                          <span>{tool.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Business Tools <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-72">
-              <DropdownMenuLabel>Business Utilities</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {businessTools.map((tool) => (
-                <DropdownMenuItem key={tool.name} asChild>
-                  <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                    <tool.icon size={16} className="text-muted-foreground" />
-                    <span>{tool.name}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                AI Powered Tools <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-72">
-              <DropdownMenuLabel>Intelligent Automation</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {aiPoweredTools.map((tool) => (
-                <DropdownMenuItem key={tool.name} asChild>
-                  <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
-                    <tool.icon size={16} className="text-muted-foreground" />
-                    <span>{tool.name}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-        </nav>
+        {isMobile ? renderMobileMenu() : renderDesktopMenu()}
       </div>
     </header>
   );
 }
+

@@ -1,8 +1,7 @@
 
 "use client";
 
-import type * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -82,15 +81,15 @@ export default function InvoiceGeneratorPage() {
   const watchedItems = form.watch("items");
   const watchedTaxRate = form.watch("taxRate");
 
-  const subtotal = React.useMemo(() => {
+  const subtotal = useMemo(() => {
     return watchedItems.reduce((acc, item) => acc + (item.quantity * item.unitPrice), 0);
   }, [watchedItems]);
 
-  const taxAmount = React.useMemo(() => {
+  const taxAmount = useMemo(() => {
     return subtotal * ((watchedTaxRate || 0) / 100);
   }, [subtotal, watchedTaxRate]);
 
-  const grandTotal = React.useMemo(() => {
+  const grandTotal = useMemo(() => {
     return subtotal + taxAmount;
   }, [subtotal, taxAmount]);
 
@@ -497,6 +496,3 @@ export default function InvoiceGeneratorPage() {
     </>
   );
 }
-
-
-    

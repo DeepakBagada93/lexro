@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -7,6 +7,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
@@ -23,6 +27,20 @@ const imageTools = [
   { name: "Gradient Generator", href: "/tools/gradient-generator", icon: Layers, description: "Design and customize gradients." },
 ];
 
+const financeCalculators = [
+  { name: "Loan EMI Calculator", href: "/calculators/finance/loan-emi-calculator", icon: CalculatorIcon },
+  { name: "Compound Interest Calculator", href: "/calculators/finance/compound-interest-calculator", icon: CalculatorIcon },
+  { name: "Credit Card Payoff Calculator", href: "/calculators/finance/credit-card-payoff-calculator", icon: CalculatorIcon },
+  { name: "Retirement Savings Calculator", href: "/calculators/finance/retirement-savings-calculator", icon: CalculatorIcon },
+  { name: "Income Tax Calculator", href: "/calculators/finance/income-tax-calculator", icon: CalculatorIcon },
+  { name: "Crypto Gains Tax Calculator", href: "/calculators/finance/crypto-gains-tax-calculator", icon: CalculatorIcon },
+  { name: "Currency Exchange Rate Calculator", href: "/calculators/finance/currency-exchange-rate-calculator", icon: CalculatorIcon },
+  { name: "Freelancer Hourly Rate Calculator", href: "/calculators/finance/freelancer-hourly-rate-calculator", icon: CalculatorIcon },
+  { name: "Budget Planner Calculator", href: "/calculators/finance/budget-planner-calculator", icon: CalculatorIcon },
+  { name: "Investment Return Calculator", href: "/calculators/finance/investment-return-calculator", icon: CalculatorIcon },
+];
+
+
 export default function Header() {
   return (
     <header className="py-6 bg-card border-b border-border shadow-md">
@@ -31,7 +49,7 @@ export default function Header() {
           <Combine size={28} />
           <span>Toolbox AI</span>
         </Link>
-        <nav>
+        <nav className="flex gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
@@ -49,6 +67,39 @@ export default function Header() {
                   </Link>
                 </DropdownMenuItem>
               ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Calculators <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-72">
+              <DropdownMenuLabel>Calculation Tools</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Landmark size={16} className="mr-2 text-muted-foreground" />
+                  <span>Finance &amp; Money Calculators</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className="w-64">
+                    <DropdownMenuLabel>Finance Tools</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {financeCalculators.map((tool) => (
+                      <DropdownMenuItem key={tool.name} asChild>
+                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                          <tool.icon size={16} className="text-muted-foreground" />
+                          <span>{tool.name}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              {/* Add other calculator categories here as DropdownMenuSub or DropdownMenuItem */}
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>

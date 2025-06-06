@@ -1,4 +1,4 @@
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -38,6 +38,14 @@ const financeCalculators = [
   { name: "Freelancer Hourly Rate Calculator", href: "/calculators/finance/freelancer-hourly-rate-calculator", icon: CalculatorIcon },
   { name: "Budget Planner Calculator", href: "/calculators/finance/budget-planner-calculator", icon: CalculatorIcon },
   { name: "Investment Return Calculator", href: "/calculators/finance/investment-return-calculator", icon: CalculatorIcon },
+];
+
+const aiContentCalculators = [
+  { name: "Token Estimator", href: "/calculators/ai-content/token-estimator", icon: FileJson },
+  { name: "Prompt Length Checker", href: "/calculators/ai-content/prompt-length-checker", icon: TextCursorInput },
+  { name: "Content Readability Score", href: "/calculators/ai-content/content-readability-calculator", icon: BookOpenCheck },
+  { name: "Keyword Density Calculator", href: "/calculators/ai-content/keyword-density-calculator", icon: Tags },
+  { name: "Estimated Reading Time", href: "/calculators/ai-content/estimated-reading-time-calculator", icon: Timer },
 ];
 
 
@@ -82,13 +90,33 @@ export default function Header() {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <Landmark size={16} className="mr-2 text-muted-foreground" />
-                  <span>Finance &amp; Money Calculators</span>
+                  <span>Finance &amp; Money</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="w-64">
                     <DropdownMenuLabel>Finance Tools</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {financeCalculators.map((tool) => (
+                      <DropdownMenuItem key={tool.name} asChild>
+                        <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
+                          <tool.icon size={16} className="text-muted-foreground" />
+                          <span>{tool.name}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Brain size={16} className="mr-2 text-muted-foreground" />
+                  <span>AI &amp; Content Creation</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className="w-72"> {/* Increased width for longer names */}
+                    <DropdownMenuLabel>AI & Content Tools</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {aiContentCalculators.map((tool) => (
                       <DropdownMenuItem key={tool.name} asChild>
                         <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
                           <tool.icon size={16} className="text-muted-foreground" />

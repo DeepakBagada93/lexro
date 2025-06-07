@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette, Shapes, ListChecks, Disc3, GitCompareArrows } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette, Shapes, ListChecks, Disc3, GitCompareArrows, Gamepad2 } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -103,7 +103,7 @@ const aiPoweredTools = [
   { name: "Customer Persona Generator", href: "/ai-powered-tools/customer-persona-generator", icon: UserCog, description: "Develop detailed customer personas with AI." },
 ];
 
-const decisionTools = [
+const funTools = [
   { name: "Picker Wheel", href: "/decision-tools/picker-wheel", icon: Disc3, description: "Make random decisions with a spinning wheel." },
   { name: "Would You Rather Generator", href: "/decision-tools/would-you-rather-generator", icon: GitCompareArrows, description: "Fun or tricky choice-based game tool." },
 ];
@@ -292,13 +292,13 @@ export default function Header({ className }: HeaderProps) {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
-            Decision Tools <ChevronDown className="ml-2 h-4 w-4" />
+            Fun Tools <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-72">
-          <DropdownMenuLabel>Decision Making Aids</DropdownMenuLabel>
+          <DropdownMenuLabel>Fun & Games</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {decisionTools.map((tool) => (
+          {funTools.map((tool) => (
             <DropdownMenuItem key={tool.name} asChild>
               <Link href={tool.href} className="flex items-center gap-2 cursor-pointer">
                 <tool.icon size={16} className="text-muted-foreground" />
@@ -389,10 +389,10 @@ export default function Header({ className }: HeaderProps) {
                   {aiPoweredTools.map(renderMobileMenuLink)}
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="decision-tools">
-                <AccordionTrigger className="text-base font-semibold hover:no-underline">Decision Tools</AccordionTrigger>
+              <AccordionItem value="fun-tools">
+                <AccordionTrigger className="text-base font-semibold hover:no-underline">Fun Tools</AccordionTrigger>
                 <AccordionContent className="pl-2 space-y-1">
-                  {decisionTools.map(renderMobileMenuLink)}
+                  {funTools.map(renderMobileMenuLink)}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -434,3 +434,4 @@ export default function Header({ className }: HeaderProps) {
     </header>
   );
 }
+

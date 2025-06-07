@@ -25,7 +25,7 @@ const PersonaDemographicsSchema = z.object({
   occupation: z.string().describe("Common occupation, job title, or role of the persona (e.g., 'Marketing Manager', 'Freelance Graphic Designer', 'Stay-at-home Parent')."),
   educationLevel: z.string().optional().describe("Typical education level (e.g., 'Bachelor's Degree in Business', 'High School Diploma', 'PhD in Engineering')."),
   location: z.string().optional().describe("Geographic location or type of area they reside or work in (e.g., 'Urban tech hubs in North America', 'Suburban areas with young families', 'Remote/Global')."),
-  keyCharacteristics: z.array(z.string()).optional().min(1).describe("List of 2-3 key personality traits or characteristics (e.g., 'Tech-savvy', 'Detail-oriented', 'Family-focused').")
+  keyCharacteristics: z.array(z.string()).min(1).optional().describe("List of 2-3 key personality traits or characteristics (e.g., 'Tech-savvy', 'Detail-oriented', 'Family-focused').")
 });
 
 export const GenerateCustomerPersonaOutputSchema = z.object({
@@ -98,3 +98,4 @@ const generateCustomerPersonaFlow = ai.defineFlow(
     return output;
   }
 );
+

@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette, Shapes, ListChecks, Disc3 } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette, Shapes, ListChecks, Disc3, GitCompareArrows } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -105,6 +105,7 @@ const aiPoweredTools = [
 
 const decisionTools = [
   { name: "Picker Wheel", href: "/decision-tools/picker-wheel", icon: Disc3, description: "Make random decisions with a spinning wheel." },
+  { name: "Would You Rather Generator", href: "/decision-tools/would-you-rather-generator", icon: GitCompareArrows, description: "Fun or tricky choice-based game tool." },
 ];
 
 interface HeaderProps {
@@ -433,4 +434,3 @@ export default function Header({ className }: HeaderProps) {
     </header>
   );
 }
-

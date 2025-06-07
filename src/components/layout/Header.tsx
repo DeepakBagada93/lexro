@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -38,6 +38,7 @@ const imageTools = [
   { name: "WEBP to JPG Converter", href: "/tools/webp-to-jpg", icon: Replace, description: "Convert WEBP images to JPG format." },
   { name: "Color Palette Generator", href: "/tools/color-palette-generator", icon: Palette, description: "Create color palettes from images." },
   { name: "Gradient Generator", href: "/tools/gradient-generator", icon: Layers, description: "Design and customize gradients." },
+  { name: "Color Picker", href: "/tools/color-picker", icon: Pipette, description: "Pick colors and get HEX, RGB, HSL values." },
 ];
 
 const financeCalculators = [

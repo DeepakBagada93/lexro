@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog, Pipette, Shapes } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -39,6 +39,7 @@ const imageTools = [
   { name: "Color Palette Generator", href: "/tools/color-palette-generator", icon: Palette, description: "Create color palettes from images." },
   { name: "Gradient Generator", href: "/tools/gradient-generator", icon: Layers, description: "Design and customize gradients." },
   { name: "Color Picker", href: "/tools/color-picker", icon: Pipette, description: "Pick colors and get HEX, RGB, HSL values." },
+  { name: "Color Harmonies Generator", href: "/tools/color-harmonies-generator", icon: Shapes, description: "Generate color harmonies." },
 ];
 
 const financeCalculators = [
@@ -118,7 +119,7 @@ export default function Header({ className }: HeaderProps) {
             Image Tools <ChevronDown className="ml-2 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-64">
+        <DropdownMenuContent className="w-72"> {/* Increased width for longer names */}
           <DropdownMenuLabel>Image Utilities</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {imageTools.map((tool) => (
@@ -314,7 +315,7 @@ export default function Header({ className }: HeaderProps) {
               <span>Lexro AI</span>
             </Link>
           </div>
-          <div className="p-4 space-y-2 overflow-y-auto" style={{maxHeight: 'calc(100vh - 70px)'}}> {/* Adjust max height based on header */}
+          <div className="p-4 space-y-2 overflow-y-auto" style={{maxHeight: 'calc(100vh - 70px)'}}>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="image-tools">
                 <AccordionTrigger className="text-base font-semibold hover:no-underline">Image Tools</AccordionTrigger>
@@ -372,10 +373,6 @@ export default function Header({ className }: HeaderProps) {
   );
   
   if (isMobile === undefined) {
-    // To prevent SSR/hydration mismatch or flash of incorrect menu, 
-    // you might render a placeholder or nothing until isMobile is determined.
-    // For simplicity here, we'll render based on initial assumption (desktop) or let it quickly correct.
-    // A common pattern is to return null or a Skeleton loader here.
     return (
        <header className={cn("py-6 bg-card border-b border-border shadow-md", className)}>
         <div className="container mx-auto px-4 flex items-center justify-between">
@@ -383,20 +380,17 @@ export default function Header({ className }: HeaderProps) {
             <Combine size={28} />
             <span>Lexro AI</span>
           </Link>
-           {/* Placeholder for menu button on mobile during load */}
           <div className="md:hidden"> 
             <Button variant="outline" size="icon" disabled>
               <Menu className="h-5 w-5" />
             </Button>
           </div>
           <div className="hidden md:flex">
-             {/* Placeholder for desktop menu during load or render nothing */}
           </div>
         </div>
       </header>
     );
   }
-
 
   return (
     <header className={cn("py-6 bg-card border-b border-border shadow-md", className)}>
@@ -410,4 +404,3 @@ export default function Header({ className }: HeaderProps) {
     </header>
   );
 }
-

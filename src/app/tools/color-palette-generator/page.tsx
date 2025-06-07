@@ -7,86 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import ImageUpload from '@/components/shared/ImageUpload';
 import ImagePreview from '@/components/shared/ImagePreview';
+import ColorSwatch from '@/components/shared/ColorSwatch';
 import { fileToDataUri } from '@/lib/imageUtils';
+import { hexToRgb, rgbToHex, rgbToHsl, hslToRgb, isValidHex } from '@/lib/colorUtils';
 import { useToast } from "@/hooks/use-toast";
 import Header from '@/components/layout/Header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-interface ColorSwatchProps {
-  color: string; // HEX color string e.g., "#RRGGBB"
-}
-
-const ColorSwatch: React.FC<ColorSwatchProps> = ({ color }) => {
-  const { toast } = useToast();
-  const copyColorToClipboard = () => {
-    navigator.clipboard.writeText(color);
-    toast({ title: "Color Copied!", description: `${color} copied to clipboard.` });
-  };
-
-  return (
-    <div className="flex flex-col items-center gap-2 p-3 border rounded-lg bg-card hover:bg-muted/50 transition-colors shadow-sm w-full">
-      <div 
-        className="w-full h-24 rounded-md border" 
-        style={{ backgroundColor: color, boxShadow: `0 0 0 1px hsl(var(--border)) inset` }} 
-        aria-label={`Color swatch for ${color}`}
-      />
-      <div className="flex items-center gap-2 w-full pt-1">
-        <span className="font-mono text-sm flex-grow text-center">{color.toUpperCase()}</span>
-        <Button variant="ghost" size="icon" onClick={copyColorToClipboard} className="shrink-0 h-8 w-8" aria-label={`Copy color ${color}`}>
-          <Copy size={16} />
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-// Color Manipulation Utilities
-const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-};
-
-const rgbToHex = (r: number, g: number, b: number): string => {
-  const toHex = (c: number) => Math.max(0, Math.min(255, Math.round(c))).toString(16).padStart(2, '0');
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
-};
-
-const rgbToHsl = (r: number, g: number, b: number): { h: number, s: number, l: number } => {
-    r /= 255; g /= 255; b /= 255;
-    const max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let h = 0, s: number, l = (max + min) / 2;
-
-    if (max === min) {
-        h = s = 0; 
-    } else {
-        const d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch (max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-    }
-    return { h: h * 360, s: s * 100, l: l * 100 };
-};
-
-const hslToRgb = (h: number, s: number, l: number): { r: number, g: number, b: number } => {
-    s /= 100; l /= 100;
-    const k = (n: number) => (n + h / 30) % 12;
-    const a = s * Math.min(l, 1 - l);
-    const f = (n: number) =>
-        l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-    return { r: 255 * f(0), g: 255 * f(8), b: 255 * f(4) };
-};
 
 const generatePaletteFromColor = (baseHex: string): string[] => {
   const baseRgb = hexToRgb(baseHex);
@@ -95,6 +23,7 @@ const generatePaletteFromColor = (baseHex: string): string[] => {
   const baseHsl = rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b);
   const palette: string[] = [baseHex];
 
+  // Tints (lighter versions)
   const tint1Hsl = { ...baseHsl, l: Math.min(100, baseHsl.l + 15) };
   const tint1Rgb = hslToRgb(tint1Hsl.h, tint1Hsl.s, tint1Hsl.l);
   palette.push(rgbToHex(tint1Rgb.r, tint1Rgb.g, tint1Rgb.b));
@@ -103,6 +32,7 @@ const generatePaletteFromColor = (baseHex: string): string[] => {
   const tint2Rgb = hslToRgb(tint2Hsl.h, tint2Hsl.s, tint2Hsl.l);
   palette.push(rgbToHex(tint2Rgb.r, tint2Rgb.g, tint2Rgb.b));
 
+  // Shades (darker versions)
   const shade1Hsl = { ...baseHsl, l: Math.max(0, baseHsl.l - 15) };
   const shade1Rgb = hslToRgb(shade1Hsl.h, shade1Hsl.s, shade1Hsl.l);
   palette.push(rgbToHex(shade1Rgb.r, shade1Rgb.g, shade1Rgb.b));
@@ -111,6 +41,7 @@ const generatePaletteFromColor = (baseHex: string): string[] => {
   const shade2Rgb = hslToRgb(shade2Hsl.h, shade2Hsl.s, shade2Hsl.l);
   palette.push(rgbToHex(shade2Rgb.r, shade2Rgb.g, shade2Rgb.b));
   
+  // Complementary color
   const complementaryHsl = { ...baseHsl, h: (baseHsl.h + 180) % 360 };
   const compRgb = hslToRgb(complementaryHsl.h, complementaryHsl.s, complementaryHsl.l);
   palette.push(rgbToHex(compRgb.r, compRgb.g, compRgb.b));
@@ -213,19 +144,19 @@ export default function ColorPaletteGeneratorPage() {
   const handleManualColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newColor = e.target.value.toUpperCase();
     setManualHexColor(newColor);
-    if (/^#[0-9A-F]{6}$/i.test(newColor)) {
-         setPaletteFromManual([]); // Clear previous manual palette when input changes
+    if (isValidHex(newColor)) {
+         setPaletteFromManual([]); 
     }
   };
   
   const handleGeneratePaletteFromManualColor = () => {
-    if (!/^#[0-9A-F]{6}$/i.test(manualHexColor)) {
+    if (!isValidHex(manualHexColor)) {
       toast({ title: "Invalid HEX Color", description: "Please enter a valid 6-digit HEX color code (e.g., #RRGGBB).", variant: "destructive" });
       return;
     }
     setIsProcessingManual(true);
     setPaletteFromManual([]);
-    setTimeout(() => { // Simulate processing
+    setTimeout(() => { 
       const newPalette = generatePaletteFromColor(manualHexColor);
       setPaletteFromManual(newPalette);
       toast({ title: "Palette Generated", description: "Created palette from your selected color." });
@@ -293,13 +224,13 @@ export default function ColorPaletteGeneratorPage() {
                       className="font-mono"
                     />
                   </div>
-                   {!/^#[0-9A-F]{6}$/i.test(manualHexColor) && manualHexColor.length > 0 && (
+                   {!isValidHex(manualHexColor) && manualHexColor.length > 0 && (
                     <p className="text-xs text-destructive">Enter a valid HEX color (e.g., #FF0000)</p>
                   )}
                 </div>
                 <Button 
                   onClick={handleGeneratePaletteFromManualColor} 
-                  disabled={isProcessingManual || !/^#[0-9A-F]{6}$/i.test(manualHexColor)}
+                  disabled={isProcessingManual || !isValidHex(manualHexColor)}
                   className="w-full"
                 >
                   <Palette size={18} className="mr-2" />
@@ -331,14 +262,11 @@ export default function ColorPaletteGeneratorPage() {
             {currentPalette.length === 0 && !isLoading && activeTab === "image" && imageDataUrl && (
                  <p className="text-center text-muted-foreground py-4">Click "Extract Palette from Image" to see colors.</p>
             )}
-             {currentPalette.length === 0 && !isLoading && activeTab === "manual" && /^#[0-9A-F]{6}$/i.test(manualHexColor) && (
+             {currentPalette.length === 0 && !isLoading && activeTab === "manual" && isValidHex(manualHexColor) && (
                  <p className="text-center text-muted-foreground py-4">Click "Generate Palette from Color" to see variations.</p>
             )}
-
-
           </CardContent>
           <CardFooter className="pt-4">
-             {/* Footer can be empty or have general info if needed */}
           </CardFooter>
         </Card>
       </main>
@@ -350,4 +278,3 @@ export default function ColorPaletteGeneratorPage() {
     </div>
   );
 }
-

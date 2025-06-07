@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from 'react';
-import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu } from 'lucide-react';
+import { Combine, Eraser, Crop, Replace, Palette, Layers, ChevronDown, Calculator as CalculatorIcon, Landmark, Brain, FileJson, TextCursorInput, BookOpenCheck, Tags, Timer, Scale, Flame, PieChart as PieChartLucideIcon, Target, Gauge, Droplet, HeartPulse, Briefcase, Globe, Leaf, Backpack, CalendarDays, Plane, ShoppingCart, Tag, BadgePercent, Truck, Boxes, BadgeDollarSign, FileText, FilePlus, FileSpreadsheet, FileLock2, FileLock, FileSignature, Sparkles, Lightbulb, Menu, UserCog } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -98,6 +98,7 @@ const businessTools = [
 const aiPoweredTools = [
   { name: "AI Powered Suggestion Tool", href: "/ai-powered-tools/suggestion-tool", icon: Lightbulb, description: "Get AI-powered suggestions." },
   { name: "AI Powered Resume Generator", href: "/ai-powered-tools/resume-generator", icon: FileText, description: "Create a resume with AI and download as PDF." },
+  { name: "Customer Persona Generator", href: "/ai-powered-tools/customer-persona-generator", icon: UserCog, description: "Develop detailed customer personas with AI." },
 ];
 
 interface HeaderProps {

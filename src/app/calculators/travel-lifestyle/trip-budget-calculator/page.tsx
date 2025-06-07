@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Briefcase, PlusCircle, Trash2, Users, CalendarDays, Utensils, Ticket, BedDouble, Package, AlertCircle, Percent } from 'lucide-react';
+import { Briefcase, PlusCircle, Trash2, Users, CalendarDays, Utensils, Ticket, BedDouble, Package, AlertCircle, Percent, Plane } from 'lucide-react';
 
 import Header from '@/components/layout/Header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -271,3 +271,4 @@ export default function TripBudgetCalculatorPage() {
     </div>
   );
 }
+

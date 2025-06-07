@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Disc3, PlusCircle, Trash2, PlayCircle, RotateCcw, CheckCircle, XCircle, Target } from 'lucide-react';
+import { Disc3, PlusCircle, Trash2, PlayCircle, RotateCcw, CheckCircle, Target, RefreshCw } from 'lucide-react';
 
 import Header from '@/components/layout/Header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,7 +30,6 @@ export default function PickerWheelPage() {
   const { toast } = useToast();
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
-  const [spinResultDisplay, setSpinResultDisplay] = useState<string | null>(null);
   const [spinningItem, setSpinningItem] = useState<string | null>(null);
 
 
@@ -54,7 +53,6 @@ export default function PickerWheelPage() {
 
     setIsSpinning(true);
     setSelectedChoice(null);
-    setSpinResultDisplay(null);
 
     const validChoices = data.choices.map(c => c.value).filter(Boolean);
     if (validChoices.length < 2) {
@@ -64,18 +62,20 @@ export default function PickerWheelPage() {
     }
 
     let spinCount = 0;
-    const maxSpins = 20 + Math.floor(Math.random() * 10); // Randomize spin duration
+    const minSpins = validChoices.length * 2; 
+    const randomExtraSpins = Math.floor(Math.random() * validChoices.length * 2);
+    const maxSpins = minSpins + randomExtraSpins + 10; 
     const spinInterval = 75; // milliseconds
 
     const intervalId = setInterval(() => {
       setSpinningItem(validChoices[spinCount % validChoices.length]);
       spinCount++;
+
       if (spinCount > maxSpins) {
         clearInterval(intervalId);
         const randomIndex = Math.floor(Math.random() * validChoices.length);
         const result = validChoices[randomIndex];
         setSelectedChoice(result);
-        setSpinResultDisplay(result);
         setSpinningItem(null);
         setIsSpinning(false);
         toast({ title: "And the winner is...", description: result, duration: 5000 });
@@ -86,7 +86,6 @@ export default function PickerWheelPage() {
   const handleReset = () => {
     form.reset({ choices: [{ value: "" }, { value: "" }] });
     setSelectedChoice(null);
-    setSpinResultDisplay(null);
     setIsSpinning(false);
     toast({ title: "Wheel Reset", description: "You can now add new choices."});
   };
@@ -159,21 +158,26 @@ export default function PickerWheelPage() {
                   </Button>
                 </div>
 
-                {(isSpinning || spinResultDisplay) && (
-                  <div className="mt-6 p-6 bg-muted/50 rounded-lg border text-center min-h-[120px] flex flex-col items-center justify-center">
-                    {isSpinning && !spinResultDisplay && (
+                {(isSpinning || selectedChoice) && (
+                  <div className="mt-8 p-8 bg-primary/10 rounded-xl border-2 border-primary/30 text-center min-h-[150px] flex flex-col items-center justify-center shadow-lg">
+                    {isSpinning && (
                       <>
-                        <Target size={32} className="text-primary animate-pulse mb-2" />
-                        <p className="text-2xl font-semibold text-primary animate-pulse">
+                        <p className="text-sm text-primary/80 mb-2">Spinning...</p>
+                        <div className="flex items-center justify-center gap-3">
+                          <RefreshCw size={36} className="text-primary animate-spin" />
+                          <p className="text-4xl font-bold text-primary truncate max-w-xs">
                           {spinningItem || "Choosing..."}
-                        </p>
+                          </p>
+                        </div>
                       </>
                     )}
-                    {!isSpinning && spinResultDisplay && (
+                    {!isSpinning && selectedChoice && (
                       <>
-                        <CheckCircle size={32} className="text-green-500 mb-2" />
-                        <p className="text-sm text-muted-foreground">The wheel has chosen:</p>
-                        <p className="text-3xl font-bold text-primary mt-1">{spinResultDisplay}</p>
+                        <p className="text-sm text-primary/80 mb-2">The wheel has decided!</p>
+                         <div className="flex items-center justify-center gap-3">
+                          <CheckCircle size={40} className="text-accent" />
+                          <p className="text-5xl font-bold text-accent truncate max-w-xs">{selectedChoice}</p>
+                        </div>
                       </>
                     )}
                   </div>

@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const GenerateCustomerPersonaInputSchema = z.object({
+const GenerateCustomerPersonaInputSchema = z.object({
   businessType: z.string().min(3, "Business type is required (min 3 characters).").describe("Type of business (e.g., e-commerce, SaaS, local coffee shop, B2B software)."),
   productOrService: z.string().min(10, "Product/service description is required (min 10 characters).").describe("Brief description of the main product or service offered by the business."),
   targetAudienceGoals: z.string().min(10, "Audience goals are required (min 10 characters).").describe("What does the ideal customer want to achieve by using this product/service or in general? (e.g., 'increase productivity', 'find unique gifts', 'improve health')."),
@@ -28,7 +28,7 @@ const PersonaDemographicsSchema = z.object({
   keyCharacteristics: z.array(z.string()).min(1).optional().describe("List of 2-3 key personality traits or characteristics (e.g., 'Tech-savvy', 'Detail-oriented', 'Family-focused').")
 });
 
-export const GenerateCustomerPersonaOutputSchema = z.object({
+const GenerateCustomerPersonaOutputSchema = z.object({
   personaName: z.string().describe("A catchy, fictional, and descriptive name for the persona (e.g., 'Ambitious Alex', 'Creative Clara', 'Practical Pete'). Should ideally alliterate or be memorable."),
   demographics: PersonaDemographicsSchema.describe("Key demographic details of the persona."),
   goals: z.array(z.string()).min(2).max(4).describe("List of 2-4 primary goals of this persona, directly related to or addressable by the business's product/service."),

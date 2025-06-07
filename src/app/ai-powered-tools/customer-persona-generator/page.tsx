@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { UserCog, Sparkles, AlertTriangle, Type, Briefcase, Target, Zap, Info, Users, GraduationCap, MapPin, MessagesSquare, RadioTower, FileText, MessageSquareQuote } from 'lucide-react';
 
 import Header from '@/components/layout/Header';
@@ -17,10 +18,19 @@ import { Separator } from '@/components/ui/separator';
 import { useToast } from "@/hooks/use-toast";
 import {
   generateCustomerPersona,
-  GenerateCustomerPersonaInputSchema,
   type GenerateCustomerPersonaInput,
   type GenerateCustomerPersonaOutput
 } from '@/ai/flows/generate-customer-persona-flow';
+
+// Define the input schema here for client-side validation
+const GenerateCustomerPersonaInputSchema = z.object({
+  businessType: z.string().min(3, "Business type is required (min 3 characters).").describe("Type of business (e.g., e-commerce, SaaS, local coffee shop, B2B software)."),
+  productOrService: z.string().min(10, "Product/service description is required (min 10 characters).").describe("Brief description of the main product or service offered by the business."),
+  targetAudienceGoals: z.string().min(10, "Audience goals are required (min 10 characters).").describe("What does the ideal customer want to achieve by using this product/service or in general? (e.g., 'increase productivity', 'find unique gifts', 'improve health')."),
+  targetAudienceChallenges: z.string().min(10, "Audience challenges are required (min 10 characters).").describe("Key problems, pain points, or frustrations the ideal customer faces that this product/service can address (e.g., 'wasting time on manual tasks', 'difficulty finding reliable information', 'high costs of current solutions')."),
+  additionalInfo: z.string().optional().describe("Any other relevant information about the target audience, market context, or specific aspects to focus on (e.g., 'they are budget-conscious', 'primarily active on Instagram', 'value sustainability')."),
+});
+
 
 export default function CustomerPersonaGeneratorPage() {
   const { toast } = useToast();
@@ -274,3 +284,4 @@ export default function CustomerPersonaGeneratorPage() {
     </div>
   );
 }
+
